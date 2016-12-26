@@ -10,18 +10,19 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 }
 
 void Minesweeper::startGame() {
+	cout << "Start!" << endl;
 }
 
 void Minesweeper::nextMove(Coordinates c) {
-
+	cout << "next" << endl;
 }
 
 int Minesweeper::getScore() {
-
+	return score;
 }
 
 bool Minesweeper::gameOver(){
-
+	return false;
 }
 
 Minesweeper::~Minesweeper() {

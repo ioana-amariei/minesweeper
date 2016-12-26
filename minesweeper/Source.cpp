@@ -2,9 +2,9 @@
 #include"Coordinates.h"
 
 Coordinates readNextMove() {
-	int x, y;
+	int x = 1, y = 3;
 	// citesc de la consola urm celula ce trebuie descoperita ...
-	Coordinates coord = { x,y };
+	Coordinates coord(x,y);
 
 	return coord;
 }
