@@ -1,10 +1,17 @@
 #include"Minesweeper.h"
 #include"Coordinates.h"
+#include<conio.h>
+
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+#define SPACE 32
 
 Coordinates readNextMove() {
 	int x,y;
 
-	// citesc de la consola urm celula ce trebuie descoperita ...
 	cout << "x = "; cin >> x;
 	cout << "y = "; cin >> y;
 
@@ -35,9 +42,29 @@ int main() {
 	minesweeper->startGame();
 
 	do {
-		Coordinates c = readNextMove();
-		minesweeper->nextMove(c);
-	} while (!minesweeper->gameOver());
+		//Coordinates c = readNextMove();
+		int command = _getch();
+
+		if (command == KEY_UP) {
+			minesweeper->up();
+		}
+		else if (command == KEY_RIGHT) {
+			minesweeper->right();
+		}
+		else if (command == KEY_DOWN) {
+			minesweeper->down();
+		}
+		else if (command == KEY_LEFT) {
+			minesweeper->left();
+		}
+		else if (command == SPACE) {
+			minesweeper->nextMove();
+		}
+		else {
+			continue;
+		}
+		//minesweeper->nextMove(c);
+	} while (!minesweeper->isGameOver());
 
 
 	return 0;
