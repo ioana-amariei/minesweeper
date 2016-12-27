@@ -2,8 +2,12 @@
 #include"Coordinates.h"
 
 Coordinates readNextMove() {
-	int x = 1, y = 3;
+	int x,y;
+
 	// citesc de la consola urm celula ce trebuie descoperita ...
+	cout << "x = "; cin >> x;
+	cout << "y = "; cin >> y;
+
 	Coordinates coord(x,y);
 
 	return coord;
@@ -11,9 +15,16 @@ Coordinates readNextMove() {
 
 GameParameters readGameParameters() {
 	GameParameters gp;
-	/*
-	.........
-	*/
+
+	cout << "Enter number of rows [10]: ";
+	cin >> gp.rows;
+
+	cout << "Enter number of columns [12]: ";
+	cin >> gp.columns;
+
+	cout << "Enter difficulty level [E (easy), M (medium), H (hard)]: ";
+	cin >> gp.difficulty;
+
 	return gp;
 }
 
