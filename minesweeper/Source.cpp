@@ -8,6 +8,7 @@
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define SPACE 32
+#define FLAG 'f'
 
 Coordinates readNextMove() {
 	int x,y;
@@ -59,6 +60,9 @@ int main() {
 		}
 		else if (command == SPACE) {
 			minesweeper->nextMove();
+		}
+		else if (command == FLAG) {
+			minesweeper->flag();
 		}
 		else {
 			continue;

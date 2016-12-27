@@ -22,7 +22,7 @@ public:
 	void right();
 	void down();
 	void left();
-
+	void flag();
 	void nextMove();
 
 	bool isGameOver();
@@ -38,13 +38,14 @@ private:
 	int** board;
 	int score;
 	int** visible;
+	int** flagged;
 	bool gameOver;
 	int cursorRow;
 	int cursorColumn;
 	int dx[8] = { -1,-1,0,1,1,1,0,-1 };
 	int dy[8] = { 0,1,1,1,0,-1,-1,-1 };
 
-	enum CellState { Mine = -1, Free = 0};
+	enum CellState {Mine = -1, Free = 0};
 
 	void updateConsoleFrame();
 

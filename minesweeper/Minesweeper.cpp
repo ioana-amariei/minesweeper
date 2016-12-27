@@ -9,6 +9,7 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 	
 	board = allocateMatrix(rows, columns);
 	visible = allocateMatrix(rows, columns);
+	flagged = allocateMatrix(rows, columns);
 	gameOver = false;
 	cursorRow = 0;
 	cursorColumn = 0;
@@ -44,8 +45,21 @@ void Minesweeper::printBoardCell(int row, int column) {
 			cout << pad(board[row][column], row, column);
 		}
 	}
+	else if (flagged[row][column] == 1) {
+		if (isGameOver() && board[row][column] == Mine) {
+			cout << pad("#", row, column);
+		}
+		else {
+			cout << pad("?", row, column);
+		}
+	}
 	else {
-		cout << pad("-", row, column);
+		if (isGameOver() && board[row][column] == Mine) {
+			cout << pad("#", row, column);
+		}
+		else {
+			cout << pad("-", row, column);
+		}
 	}
 }
 
@@ -185,6 +199,17 @@ void Minesweeper::left() {
 	updateConsoleFrame();
 }
 
+void Minesweeper::flag() {
+	if (flagged[cursorRow][cursorColumn] == 1) {
+		flagged[cursorRow][cursorColumn] = 0;
+	}
+	else {
+		flagged[cursorRow][cursorColumn] = 1;
+	}
+	
+	updateConsoleFrame();
+}
+
 int Minesweeper::getScore() {
 	return score;
 }
@@ -196,6 +221,7 @@ bool Minesweeper::isGameOver(){
 Minesweeper::~Minesweeper() {
 	deallocateMatrix(board, rows, columns);
 	deallocateMatrix(visible, rows, columns);
+	deallocateMatrix(flagged, rows, columns);
 }
 
 void Minesweeper::clearConsoleFrame() {
