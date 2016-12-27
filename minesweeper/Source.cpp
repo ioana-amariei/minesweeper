@@ -9,6 +9,7 @@
 #define KEY_RIGHT 77
 #define SPACE 32
 #define FLAG 'f'
+#define QUIT 'q'
 
 Coordinates readNextMove() {
 	int x,y;
@@ -36,6 +37,12 @@ GameParameters readGameParameters() {
 	return gp;
 }
 
+void waitForQuiting() {
+	int command;
+	do {
+		command = _getch();
+	} while (command != QUIT);
+}
 int main() {
 	GameParameters gp = readGameParameters();
 	Minesweeper* minesweeper = new Minesweeper(gp);
@@ -70,6 +77,7 @@ int main() {
 		//minesweeper->nextMove(c);
 	} while (!minesweeper->isGameOver());
 
+	waitForQuiting();
 
 	return 0;
 }
