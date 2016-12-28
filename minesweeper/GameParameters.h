@@ -2,7 +2,7 @@ class GameParameters {
 public:
 	int rows;
 	int columns;
-	char difficulty;
+	int difficulty;
 
 	GameParameters();
 

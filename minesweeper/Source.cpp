@@ -2,7 +2,6 @@
 #include"Coordinates.h"
 #include<conio.h>
 
-
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
@@ -10,6 +9,7 @@
 #define SPACE 32
 #define FLAG 'f'
 #define QUIT 'q'
+
 
 Coordinates readNextMove() {
 	int x,y;
@@ -43,6 +43,8 @@ void waitForQuiting() {
 		command = _getch();
 	} while (command != QUIT);
 }
+
+
 int main() {
 	GameParameters gp = readGameParameters();
 	Minesweeper* minesweeper = new Minesweeper(gp);
@@ -50,7 +52,6 @@ int main() {
 	minesweeper->startGame();
 
 	do {
-		//Coordinates c = readNextMove();
 		int command = _getch();
 
 		if (command == KEY_UP) {
@@ -74,7 +75,6 @@ int main() {
 		else {
 			continue;
 		}
-		//minesweeper->nextMove(c);
 	} while (!minesweeper->isGameOver());
 
 	waitForQuiting();

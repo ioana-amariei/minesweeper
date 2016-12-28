@@ -143,14 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="GameParameters.cpp" />
     <ClCompile Include="Minesweeper.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coordinates.h" />
-    <ClInclude Include="GameBoard.h" />
     <ClInclude Include="GameParameters.h" />
     <ClInclude Include="Minesweeper.h" />
   </ItemGroup>

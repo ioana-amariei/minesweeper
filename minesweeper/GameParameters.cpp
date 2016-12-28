@@ -3,7 +3,7 @@
 GameParameters::GameParameters() {
 	rows = 0;
 	columns = 0;
-	difficulty = 'E';
+	difficulty = 0;
 }
 
 GameParameters::~GameParameters() {
