@@ -1,5 +1,6 @@
 #include"Minesweeper.h"
 #include <cstdlib>
+#include<iomanip>
 
 Minesweeper::Minesweeper(GameParameters& gp) {
 	rows = gp.rows;
@@ -9,12 +10,10 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 	board = allocateMatrix(rows, columns);
 	visible = allocateMatrix(rows, columns);
 	flagged = allocateMatrix(rows, columns);
-	
+
 	cursorRow = 0;
 	cursorColumn = 0;
 	initBoard();
-	score = 0;
-
 	gameOver = false;
 }
 
@@ -29,10 +28,6 @@ int** Minesweeper::allocateMatrix(int rows, int columns) {
 
 /* ----------------------------------------------- */
 
-string Minesweeper::pad(int info, int row, int column) {
-	return pad(to_string(info), row, column);
-}
-
 string Minesweeper::pad(string info, int row, int column) {
 	string leftPad = " ";
 	string rightPad = " ";
@@ -43,6 +38,10 @@ string Minesweeper::pad(string info, int row, int column) {
 	}
 
 	return leftPad + info + rightPad;
+}
+
+string Minesweeper::pad(int info, int row, int column) {
+	return pad(to_string(info), row, column);
 }
 
 void Minesweeper::printBoardCell(int row, int column) {
@@ -62,7 +61,7 @@ void Minesweeper::printBoardCell(int row, int column) {
 			cout << pad("#", row, column);
 		}
 		else {
-			cout << pad("?", row, column);
+			cout << pad("@", row, column);
 		}
 	}
 	else {
@@ -75,27 +74,59 @@ void Minesweeper::printBoardCell(int row, int column) {
 	}
 }
 
+void Minesweeper::printSpaces(int spaces = 5) {
+	for (int i = 0; i < spaces; i++) {
+		cout << " ";
+	}
+}
+
 void Minesweeper::printHorizontalBorder() {
-	cout << " ";
+	printSpaces();
 	for (int i = 0; i < (columns * 3) + 2; i++) {
 		cout << "-";
 	}
 	cout << endl;
 }
 
+int Minesweeper::countFreeCells() {
+	int count = 0;
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			if (board[i][j] != Mine && !visible[i][j]) {
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
+void Minesweeper::printBoardInfo() {
+	cout << endl;
+	printSpaces(5);
+	cout << "MINESWEEPER INFO:" << endl;
+	cout << endl;
+	printSpaces(5);
+	cout << "Remaining cells: " << countFreeCells() << endl;
+	
+}
+
 void Minesweeper::printBoard() {
+	cout << endl;
 	printHorizontalBorder();
 
 	for (int i = 0; i < rows; i++) {
+		printSpaces(4);;
 		cout << "|" << " ";
 		for (int j = 0; j < columns; j++) {
 			printBoardCell(i, j);
+
 		}
 		cout << " " << "|";
 		cout << endl;
 	}
 
 	printHorizontalBorder();
+	printBoardInfo();
 }
 
 void Minesweeper::clearConsoleFrame() {
@@ -242,10 +273,14 @@ void Minesweeper::flag() {
 	updateConsoleFrame();
 }
 
+bool Minesweeper::finished() {
+	return (winner() || isGameOver());
+}
+
 /* ----------------------------------------------- */
 
-int Minesweeper::getScore() {
-	return score;
+bool Minesweeper::winner() {
+	return (countFreeCells() == 0);
 }
 
 /* ----------------------------------------------- */

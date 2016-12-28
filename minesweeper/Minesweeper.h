@@ -27,7 +27,9 @@ public:
 
 	void flag();
 
-	int getScore();
+	bool finished();
+
+	bool winner();
 
 	bool isGameOver();
 
@@ -49,16 +51,13 @@ private:
 
 	int cursorRow;
 	int cursorColumn;
-	int score;
 	int dx[8] = { -1,-1,0,1,1,1,0,-1 };
 	int dy[8] = { 0,1,1,1,0,-1,-1,-1 };
 	bool gameOver;
 
 	int** allocateMatrix(int, int);
 
-	void clearConsoleFrame();
-
-	void printBoardCell(int row, int column);
+	void printBoardCell(int, int);
 
 	void printHorizontalBorder();
 
@@ -66,7 +65,15 @@ private:
 
 	string pad(string, int, int);
 
+	void printSpaces(int);
+
+	int countFreeCells();
+
+	void printBoardInfo();
+
 	void printBoard();
+
+	void clearConsoleFrame();
 
 	void updateConsoleFrame();
 

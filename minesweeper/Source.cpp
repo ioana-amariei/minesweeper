@@ -75,9 +75,19 @@ int main() {
 		else {
 			continue;
 		}
-	} while (!minesweeper->isGameOver());
+
+	} while (!minesweeper->finished());
+
+	if (minesweeper->winner()) {
+		cout << "\t Congratulations, you won!!!" << endl;
+	}
+	else {
+		cout << "\t Game Over!!!" << endl;
+	}
 
 	waitForQuiting();
+
+	minesweeper->~Minesweeper();
 
 	return 0;
 }
