@@ -10,7 +10,7 @@ class Minesweeper {
 
 public:
 
-	Minesweeper(GameParameters&);
+	explicit Minesweeper(GameParameters&);
 
 	void startGame();
 
@@ -55,6 +55,8 @@ private:
 	bool gameOver;
 
 	int** allocateMatrix(int, int);
+
+	void deallocateMatrix(int** mat, int, int);
 
 	void printColored(string text, ostream& (*color)(ostream&));
 
@@ -101,7 +103,5 @@ private:
 	void expandSelection(int row, int column);
 
 	int countFreeCells();
-
-	void deallocateMatrix(int** mat, int, int);
 
 };

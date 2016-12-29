@@ -17,6 +17,12 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 	initBoard();
 }
 
+Minesweeper::~Minesweeper() {
+	deallocateMatrix(board, rows, columns);
+	deallocateMatrix(visible, rows, columns);
+	deallocateMatrix(flagged, rows, columns);
+}
+
 int** Minesweeper::allocateMatrix(int rows, int columns) {
 	int** mat = new int*[rows];
 	for (int i = 0; i < rows; i++) {
@@ -24,6 +30,14 @@ int** Minesweeper::allocateMatrix(int rows, int columns) {
 	}
 
 	return mat;
+}
+
+void Minesweeper::deallocateMatrix(int **mat, int rows, int columns) {
+	for (int i = 0; i < rows; i++) {
+		delete[] mat[i];
+	}
+
+	delete[] mat;
 }
 
 
@@ -62,7 +76,7 @@ void Minesweeper::printColored(string text, ostream& (*color) (ostream&)) {
 }
 
 void Minesweeper::printMine(int row, int column) {
-	printColored(pad("#", row, column), termcolor::red);
+	printColored(pad("#", row, column), termcolor::green);
 }
 
 void Minesweeper::printFlag(int row, int column) {
@@ -94,7 +108,7 @@ void Minesweeper::printBoardCell(int row, int column) {
 			printMine(row, column);
 		}
 		else {
-			printColored(pad("-", row, column), termcolor::cyan);
+			cout << pad("-", row, column);
 		}
 	}
 }
@@ -110,11 +124,11 @@ void Minesweeper::printHorizontalBorder() {
 	for (int i = 0; i < (columns * 3) + 2; i++) {
 		cout << "-";
 	}
-	cout << endl;
+	cout << '\n';
 }
 
 void Minesweeper::printBoard() {
-	cout << endl;
+	cout << '\n';
 	printHorizontalBorder();
 
 	for (int i = 0; i < rows; i++) {
@@ -125,7 +139,7 @@ void Minesweeper::printBoard() {
 
 		}
 		cout << " " << "|";
-		cout << endl;
+		cout << '\n';
 	}
 
 	printHorizontalBorder();
@@ -133,20 +147,20 @@ void Minesweeper::printBoard() {
 }
 
 void Minesweeper::printBoardInfo() {
-	cout << endl;
+	cout << '\n';
 	printSpaces(5);
-	printColored("MINESWEEPER INFO:", termcolor::cyan);
-	cout << endl << endl;
+	printColored("MINESWEEPER INFO", termcolor::green);
+	cout << '\n' << '\n';
 	printSpaces(5);
-	cout << "Cursor moves: UP, DOWN, LEFT, RIGHT" << endl;
+	cout << "Cursor moves: UP, DOWN, LEFT, RIGHT" << '\n';
 	printSpaces(5);
-	cout << "Reveal cell: SPACE" << endl;
+	cout << "Reveal cell: SPACE" << '\n';
 	printSpaces(5);
-	cout << "Flag cell: f" << endl;
+	cout << "Flag cell: f" << '\n';
 	printSpaces(5);
-	cout << "Percentage of mines: " << difficulty << "%" << endl;
+	cout << "Percentage of mines: " << difficulty << "%" << '\n';
 	printSpaces(5);
-	cout << "Remaining cells: " << countFreeCells() << endl;
+	cout << "Remaining cells: " << countFreeCells() << '\n';
 }
 
 void Minesweeper::clearConsoleFrame() {
@@ -317,20 +331,4 @@ bool Minesweeper::isGameOver(){
 
 bool Minesweeper::finished() {
 	return (winner() || isGameOver());
-}
-
-
-
-void Minesweeper::deallocateMatrix(int **mat, int rows, int columns) {
-	for (int i = 0; i < rows; i++) {
-		delete[] mat[i];
-	}
-
-	delete[] mat;
-}
-
-Minesweeper::~Minesweeper() {
-	deallocateMatrix(board, rows, columns);
-	deallocateMatrix(visible, rows, columns);
-	deallocateMatrix(flagged, rows, columns);
 }

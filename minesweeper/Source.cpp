@@ -13,7 +13,7 @@
 
 
 Coordinates readNextMove() {
-	int x,y;
+	int x, y;
 
 	cout << "x = "; cin >> x;
 	cout << "y = "; cin >> y;
@@ -65,11 +65,11 @@ char readCommand() {
 	char command;
 
 	do {
-		cout << endl << endl;
+		cout << '\n' << '\n';
 		printSpaces();
-		printColored("Play again (r) / Quit (q): ", termcolor::cyan);
+		printColored("Play again (r) / Quit (q): ", termcolor::green);
 		cin >> command;
-		cout << endl;
+		cout << '\n';
 	} while (command != QUIT && command != REPLAY);
 
 	return command;
@@ -78,13 +78,13 @@ char readCommand() {
 void printWinningMessage() {
 	string message = "C O N G R A T U L A T I O N S,    Y O U    W O N !!!";
 	printColored(message, termcolor::green);
-	cout << endl;
+	cout << '\n';
 }
 
 void printGameOverMessage() {
 	string message = "G A M E   O V E R !!!";
-	printColored(message, termcolor::red);
-	cout << endl;
+	printColored(message, termcolor::green);
+	cout << '\n';
 }
 
 void playGame() {
@@ -120,7 +120,7 @@ void playGame() {
 
 	} while (!minesweeper->finished());
 
-	cout << endl << endl;
+	cout << '\n' << '\n';
 	printSpaces();
 
 	if (minesweeper->winner()) {
