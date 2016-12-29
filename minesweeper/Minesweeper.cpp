@@ -1,5 +1,4 @@
 #include"Minesweeper.h"
-#include "termcolor.hpp"
 #include <cstdlib>
 
 Minesweeper::Minesweeper(GameParameters& gp) {
