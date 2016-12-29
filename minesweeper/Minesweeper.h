@@ -58,6 +58,16 @@ private:
 
 	void colourText(int);
 
+	void resetColour();
+
+	void printColored(string text, ostream& (*color)(ostream&));
+
+	bool isMine(int, int);
+
+	bool isFree(int, int);
+
+	bool isFlagged(int, int);
+
 	void printBoardCell(int, int);
 
 	void printHorizontalBorder();

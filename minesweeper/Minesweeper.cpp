@@ -1,4 +1,5 @@
 #include"Minesweeper.h"
+#include "termcolor.hpp"
 #include <cstdlib>
 
 Minesweeper::Minesweeper(GameParameters& gp) {
@@ -25,11 +26,15 @@ int** Minesweeper::allocateMatrix(int rows, int columns) {
 	return mat;
 }
 
-/* ----------------------------------------------- */
+
 
 void Minesweeper::colourText(int code) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, code);
+}
+
+void Minesweeper::resetColour() {
+	colourText(15);
 }
 
 string Minesweeper::pad(string info, int row, int column) {
@@ -48,44 +53,53 @@ string Minesweeper::pad(int info, int row, int column) {
 	return pad(to_string(info), row, column);
 }
 
+bool Minesweeper::isMine(int row, int column) {
+	return (board[row][column] == Mine);
+}
+
+bool Minesweeper::isFree(int row, int column) {
+	return (board[row][column] == Free);
+}
+
+bool Minesweeper::isFlagged(int row, int column) {
+	return (flagged[row][column] == 1);
+}
+
+void Minesweeper::printColored(string text, ostream& (*color) (ostream&)) {
+	cout << color << text;
+	cout << termcolor::reset;
+}
+
 void Minesweeper::printBoardCell(int row, int column) {
 	if (visible[row][column] == 1) {
-		if (board[row][column] == Mine) {
-			colourText(12);
-			cout << pad("#", row, column);
-			colourText(15);
+		if (isMine(row, column)) {
+			printColored(pad("#", row, column), termcolor::red);
 		}
-		else if (board[row][column] == Free) {
-			colourText(11);
+		else if (isFree(row, column)) {
 			cout << pad(" ", row, column);
-			colourText(15);
 		}
 		else {
 			cout << pad(board[row][column], row, column);
 		}
 	}
-	else if (flagged[row][column] == 1) {
-		if (isGameOver() && board[row][column] == Mine) {
-			colourText(12);
-			cout << pad("#", row, column);
-			colourText(15);
+	else if (isFlagged(row,column)) {
+		if (isGameOver() && isMine(row, column)) {
+			printColored(pad("#", row, column), termcolor::red);
 		}
 		else {
-			colourText(14);
-			cout << pad("@", row, column);
-			colourText(15);
+			printColored(pad("@", row, column), termcolor::green);
 		}
 	}
 	else {
-		if (isGameOver() && board[row][column] == Mine) {
-			colourText(12);
-			cout << pad("#", row, column);
-			colourText(15);
+		if (isGameOver() && isMine(row, column)) {
+			//colourText(12);
+			printColored(pad("#", row, column), termcolor::red);
+			//resetColour();
 		}
 		else {
-			colourText(3);
+			//colourText(11);
 			cout << pad("-", row, column);
-			colourText(15);
+			//resetColour();
 		}
 	}
 }
@@ -99,11 +113,28 @@ void Minesweeper::printSpaces(int spaces = 5) {
 void Minesweeper::printHorizontalBorder() {
 	printSpaces();
 	for (int i = 0; i < (columns * 3) + 2; i++) {
-		colourText(7);
 		cout << "-";
-		colourText(15);
 	}
 	cout << endl;
+}
+
+void Minesweeper::printBoard() {
+	cout << endl;
+	printHorizontalBorder();
+
+	for (int i = 0; i < rows; i++) {
+		printSpaces(4);
+		cout << "|" << " ";
+		for (int j = 0; j < columns; j++) {
+			printBoardCell(i, j);
+
+		}
+		cout << " " << "|";
+		cout << endl;
+	}
+
+	printHorizontalBorder();
+	printBoardInfo();
 }
 
 void Minesweeper::printBoardInfo() {
@@ -117,30 +148,9 @@ void Minesweeper::printBoardInfo() {
 	printSpaces(5);
 	cout << "Flag cell: f" << endl;
 	printSpaces(5);
+	cout << "Percentage of mines: " << difficulty << "%" << endl;
+	printSpaces(5);
 	cout << "Remaining cells: " << countFreeCells() << endl;
-}
-
-void Minesweeper::printBoard() {
-	cout << endl;
-	printHorizontalBorder();
-
-	for (int i = 0; i < rows; i++) {
-		printSpaces(4);;
-		colourText(7);
-		cout << "|" << " ";
-		colourText(15);
-		for (int j = 0; j < columns; j++) {
-			printBoardCell(i, j);
-
-		}
-		colourText(7);
-		cout << " " << "|";
-		colourText(15);
-		cout << endl;
-	}
-
-	printHorizontalBorder();
-	printBoardInfo();
 }
 
 void Minesweeper::clearConsoleFrame() {
@@ -157,7 +167,7 @@ void Minesweeper::startGame() {
 	updateConsoleFrame();
 }
 
-/* ----------------------------------------------- */
+
 
 bool Minesweeper::placeMine() {
 	int v = rand() % 100;
@@ -177,6 +187,10 @@ void Minesweeper::placeMines() {
 	}
 }
 
+bool Minesweeper::inBoard(int row, int column) {
+	return (row < rows && row >= 0 && column < columns && column >= 0);
+}
+
 int Minesweeper::countMines(int row, int column) {
 	int count = 0;
 
@@ -185,7 +199,7 @@ int Minesweeper::countMines(int row, int column) {
 		int y = column + dy[i];
 
 		if (inBoard(x, y)) {
-			if (board[x][y] == Mine) {
+			if (isMine(x,y)) {
 				count++;
 			}
 		}
@@ -197,7 +211,7 @@ int Minesweeper::countMines(int row, int column) {
 void Minesweeper::placeMineCounters() {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
-			if (board[i][j] == Free) { 
+			if (isFree(i,j)) { 
 				board[i][j] = countMines(i, j);
 			}
 		}
@@ -210,22 +224,17 @@ void Minesweeper::initBoard() {
 }
 
 
-/* ----------------------------------------------- */
-
-bool Minesweeper::inBoard(int row, int column) {
-	return (row < rows && row >= 0 && column < columns && column >= 0);
-}
 
 void Minesweeper::expandSelection(int row, int column) {
 	visible[row][column] = 1;
 
-	if (board[row][column] == Free) {
+	if (isFree(row, column)) {
 		for (int i = 0; i < 8; i++) {
 			int x = row + dx[i];
 			int y = column + dy[i];
 	
 			if (inBoard(x, y)) {
-				if (board[x][y] != Mine && visible[x][y] == 0) {
+				if (!isMine(x,y) && visible[x][y] == 0) {
 					expandSelection(x, y);
 				}
 			}
@@ -233,10 +242,12 @@ void Minesweeper::expandSelection(int row, int column) {
 	}
 }
 
+
+
 void Minesweeper::nextMove(Coordinates c) {
 	expandSelection(c.x, c.y);
 
-	if (board[c.x][c.y] == Mine) {
+	if (isMine(c.x,c.y)) {
 		gameOver = true;
 	}
 
@@ -248,7 +259,7 @@ void Minesweeper::nextMove() {
 	nextMove(c);
 }
 
-/* ----------------------------------------------- */
+
 
 void Minesweeper::up() {
 	if (cursorRow > 0) {
@@ -277,7 +288,7 @@ void Minesweeper::left() {
 }
 
 void Minesweeper::flag() {
-	if (flagged[cursorRow][cursorColumn] == 1) {
+	if (isFlagged(cursorRow, cursorColumn)) {
 		flagged[cursorRow][cursorColumn] = 0;
 	}
 	else {
@@ -287,17 +298,13 @@ void Minesweeper::flag() {
 	updateConsoleFrame();
 }
 
-bool Minesweeper::finished() {
-	return (winner() || isGameOver());
-}
 
-/* ----------------------------------------------- */
 
 int Minesweeper::countFreeCells() {
 	int count = 0;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
-			if (board[i][j] != Mine && !visible[i][j]) {
+			if (!isMine(i,j) && !visible[i][j]) {
 				count++;
 			}
 		}
@@ -309,13 +316,15 @@ bool Minesweeper::winner() {
 	return (countFreeCells() == 0);
 }
 
-/* ----------------------------------------------- */
-
 bool Minesweeper::isGameOver(){
 	return gameOver;
 }
 
-/* ----------------------------------------------- */
+bool Minesweeper::finished() {
+	return (winner() || isGameOver());
+}
+
+
 
 void Minesweeper::deallocateMatrix(int **mat, int rows, int columns) {
 	for (int i = 0; i < rows; i++) {

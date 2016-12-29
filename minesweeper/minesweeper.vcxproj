@@ -151,6 +151,7 @@
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="GameParameters.h" />
     <ClInclude Include="Minesweeper.h" />
+    <ClInclude Include="termcolor.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

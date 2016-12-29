@@ -111,14 +111,14 @@ void playGame() {
 	cout << endl << endl;
 	printSpaces();
 	if (minesweeper->winner()) {
-		colourText(14);
+		//colourText(10);
 		cout << "CONGRATULATIONS, YOU WON !!!" << endl;
-		colourText(15);
+		//colourText(15);
 	}
 	else {
-		colourText(12);
+		//colourText(12);
 		cout << "GAME OVER !!!" << endl;
-		colourText(15);
+		//colourText(15);
 	}
 
 	minesweeper->~Minesweeper();
