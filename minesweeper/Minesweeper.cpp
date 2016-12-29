@@ -28,15 +28,6 @@ int** Minesweeper::allocateMatrix(int rows, int columns) {
 
 
 
-void Minesweeper::colourText(int code) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, code);
-}
-
-void Minesweeper::resetColour() {
-	colourText(15);
-}
-
 string Minesweeper::pad(string info, int row, int column) {
 	string leftPad = " ";
 	string rightPad = " ";
@@ -67,13 +58,21 @@ bool Minesweeper::isFlagged(int row, int column) {
 
 void Minesweeper::printColored(string text, ostream& (*color) (ostream&)) {
 	cout << color << text;
-	//cout << termcolor::reset;
+	cout << termcolor::reset;
 }
+
+void Minesweeper::printMine(int row, int column) {
+	printColored(pad("#", row, column), termcolor::red);
+}
+
+void Minesweeper::printFlag(int row, int column) {
+	printColored(pad("@", row, column), termcolor::green);
+}
+
 void Minesweeper::printBoardCell(int row, int column) {
 	if (visible[row][column] == 1) {
 		if (isMine(row, column)) {
-			//printColored(pad("#", row, column), termcolor::red);
-			cout << pad("#", row, column);
+			printMine(row, column);
 		}
 		else if (isFree(row, column)) {
 			cout << pad(" ", row, column);
@@ -84,25 +83,18 @@ void Minesweeper::printBoardCell(int row, int column) {
 	}
 	else if (isFlagged(row,column)) {
 		if (isGameOver() && isMine(row, column)) {
-			//printColored(pad("#", row, column), termcolor::red);
-			cout << pad("#", row, column);
+			printMine(row, column);
 		}
 		else {
-			//printColored(pad("@", row, column), termcolor::green);
-			cout << pad("@", row, column);
+			printFlag(row, column);
 		}
 	}
 	else {
 		if (isGameOver() && isMine(row, column)) {
-			//colourText(12);
-			//printColored(pad("#", row, column), termcolor::red);
-			cout << pad("#", row, column);
-			//resetColour();
+			printMine(row, column);
 		}
 		else {
-			//colourText(11);
-			cout << pad("-", row, column);
-			//resetColour();
+			printColored(pad("-", row, column), termcolor::cyan);
 		}
 	}
 }
@@ -143,7 +135,8 @@ void Minesweeper::printBoard() {
 void Minesweeper::printBoardInfo() {
 	cout << endl;
 	printSpaces(5);
-	cout << "MINESWEEPER INFO:" << endl << endl;
+	printColored("MINESWEEPER INFO:", termcolor::cyan);
+	cout << endl << endl;
 	printSpaces(5);
 	cout << "Cursor moves: UP, DOWN, LEFT, RIGHT" << endl;
 	printSpaces(5);
@@ -166,15 +159,14 @@ void Minesweeper::updateConsoleFrame() {
 }
 
 void Minesweeper::startGame() {
-	clearConsoleFrame();
 	updateConsoleFrame();
 }
 
 
 
 bool Minesweeper::placeMine() {
-	int v = rand() % 100;
-	return (v < difficulty);
+	int randomNumber = rand() % 100;
+	return (randomNumber < difficulty);
 }
 
 void Minesweeper::placeMines() {

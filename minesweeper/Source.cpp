@@ -43,6 +43,7 @@ int readParameter(string message, int low, int high) {
 GameParameters readGameParameters() {
 	GameParameters gp;
 
+	cout << endl;
 	string rowsMessage = "Enter number of rows [1-50]: ";
 	gp.rows = readParameter(rowsMessage,1,50);
 
@@ -55,24 +56,35 @@ GameParameters readGameParameters() {
 	return gp;
 }
 
+void printColored(string text, ostream& (*color) (ostream&)) {
+	cout << color << text;
+	cout << termcolor::reset;
+}
+
 char readCommand() {
 	char command;
 
 	do {
 		cout << endl << endl;
 		printSpaces();
-		cout << "Play again (r) / Quit (q): ";
+		printColored("Play again (r) / Quit (q): ", termcolor::cyan);
 		cin >> command;
-		cout << endl << endl;
+		cout << endl;
 	} while (command != QUIT && command != REPLAY);
 
 	return command;
 }
 
+void printWinningMessage() {
+	string message = "C O N G R A T U L A T I O N S,    Y O U    W O N !!!";
+	printColored(message, termcolor::green);
+	cout << endl;
+}
 
-void colourText(int code) {
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, code);
+void printGameOverMessage() {
+	string message = "G A M E   O V E R !!!";
+	printColored(message, termcolor::red);
+	cout << endl;
 }
 
 void playGame() {
@@ -110,19 +122,17 @@ void playGame() {
 
 	cout << endl << endl;
 	printSpaces();
+
 	if (minesweeper->winner()) {
-		//colourText(10);
-		cout << "CONGRATULATIONS, YOU WON !!!" << endl;
-		//colourText(15);
+		printWinningMessage();
 	}
 	else {
-		//colourText(12);
-		cout << "GAME OVER !!!" << endl;
-		//colourText(15);
+		printGameOverMessage();
 	}
 
 	minesweeper->~Minesweeper();
 }
+
 
 int main() {
 

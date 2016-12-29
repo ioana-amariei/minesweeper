@@ -2,7 +2,7 @@
 #include"Coordinates.h"
 #include<iostream>
 #include<string>
-#include<Windows.h>
+#include"termcolor.hpp"
 
 using namespace std;
 
@@ -56,10 +56,6 @@ private:
 
 	int** allocateMatrix(int, int);
 
-	void colourText(int);
-
-	void resetColour();
-
 	void printColored(string text, ostream& (*color)(ostream&));
 
 	bool isMine(int, int);
@@ -67,6 +63,10 @@ private:
 	bool isFree(int, int);
 
 	bool isFlagged(int, int);
+
+	void printMine(int, int);
+
+	void printFlag(int, int);
 
 	void printBoardCell(int, int);
 
