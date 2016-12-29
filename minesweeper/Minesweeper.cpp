@@ -13,8 +13,9 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 
 	cursorRow = 0;
 	cursorColumn = 0;
-	initBoard();
 	gameOver = false;
+
+	initBoard();
 }
 
 int** Minesweeper::allocateMatrix(int rows, int columns) {
