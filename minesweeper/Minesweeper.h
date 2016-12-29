@@ -2,6 +2,7 @@
 #include"Coordinates.h"
 #include<iostream>
 #include<string>
+#include<Windows.h>
 
 using namespace std;
 
@@ -39,9 +40,7 @@ private:
 
 	int rows;
 	int columns;
-
-	enum DifficultyLevel { Easy = 10, Medium = 30, Hard = 50 };
-	DifficultyLevel difficulty;
+	int difficulty;
 
 	int** board;
 	int** visible;
@@ -57,6 +56,8 @@ private:
 
 	int** allocateMatrix(int, int);
 
+	void colourText(int);
+
 	void printBoardCell(int, int);
 
 	void printHorizontalBorder();
@@ -66,8 +67,6 @@ private:
 	string pad(string, int, int);
 
 	void printSpaces(int);
-
-	int countFreeCells();
 
 	void printBoardInfo();
 
@@ -90,6 +89,8 @@ private:
 	bool inBoard(int row, int column);
 
 	void expandSelection(int row, int column);
+
+	int countFreeCells();
 
 	void deallocateMatrix(int** mat, int, int);
 

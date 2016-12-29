@@ -9,6 +9,7 @@
 #define SPACE 32
 #define FLAG 'f'
 #define QUIT 'q'
+#define REPLAY 'r'
 
 
 Coordinates readNextMove() {
@@ -22,30 +23,59 @@ Coordinates readNextMove() {
 	return coord;
 }
 
+void printSpaces(int spaces = 5) {
+	for (int i = 0; i < spaces; i++) {
+		cout << " ";
+	}
+}
+
+int readParameter(string message, int low, int high) {
+	int parameter;
+	do {
+		printSpaces();
+		cout << message;
+		cin >> parameter;
+	} while (parameter < low || parameter > high);
+
+	return parameter;
+}
+
 GameParameters readGameParameters() {
 	GameParameters gp;
 
-	cout << "Enter number of rows [10]: ";
-	cin >> gp.rows;
+	string rowsMessage = "Enter number of rows [1-50]: ";
+	gp.rows = readParameter(rowsMessage,1,50);
 
-	cout << "Enter number of columns [12]: ";
-	cin >> gp.columns;
+	string columnsMessage = "Enter number of columns [1-50]: ";
+	gp.columns = readParameter(columnsMessage,1,50);
 
-	cout << "Enter difficulty level [E (easy), M (medium), H (hard)]: ";
-	cin >> gp.difficulty;
+	string difficultyMessage = "Enter difficulty level [1-99]: ";
+	gp.difficulty = readParameter(difficultyMessage, 1, 99);
 
 	return gp;
 }
 
-void waitForQuiting() {
-	int command;
+char readCommand() {
+	char command;
+
 	do {
-		command = _getch();
-	} while (command != QUIT);
+		cout << endl << endl;
+		printSpaces();
+		cout << "Play again (r) / Quit (q): ";
+		cin >> command;
+		cout << endl << endl;
+	} while (command != QUIT && command != REPLAY);
+
+	return command;
 }
 
 
-int main() {
+void colourText(int code) {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, code);
+}
+
+void playGame() {
 	GameParameters gp = readGameParameters();
 	Minesweeper* minesweeper = new Minesweeper(gp);
 
@@ -78,16 +108,27 @@ int main() {
 
 	} while (!minesweeper->finished());
 
+	cout << endl << endl;
+	printSpaces();
 	if (minesweeper->winner()) {
-		cout << "\t Congratulations, you won!!!" << endl;
+		colourText(14);
+		cout << "CONGRATULATIONS, YOU WON !!!" << endl;
+		colourText(15);
 	}
 	else {
-		cout << "\t Game Over!!!" << endl;
+		colourText(12);
+		cout << "GAME OVER !!!" << endl;
+		colourText(15);
 	}
 
-	waitForQuiting();
-
 	minesweeper->~Minesweeper();
+}
+
+int main() {
+
+	do {
+		playGame();
+	} while (readCommand() != QUIT);
 
 	return 0;
 }
