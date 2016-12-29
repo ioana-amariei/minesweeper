@@ -67,13 +67,13 @@ bool Minesweeper::isFlagged(int row, int column) {
 
 void Minesweeper::printColored(string text, ostream& (*color) (ostream&)) {
 	cout << color << text;
-	cout << termcolor::reset;
+	//cout << termcolor::reset;
 }
-
 void Minesweeper::printBoardCell(int row, int column) {
 	if (visible[row][column] == 1) {
 		if (isMine(row, column)) {
-			printColored(pad("#", row, column), termcolor::red);
+			//printColored(pad("#", row, column), termcolor::red);
+			cout << pad("#", row, column);
 		}
 		else if (isFree(row, column)) {
 			cout << pad(" ", row, column);
@@ -84,16 +84,19 @@ void Minesweeper::printBoardCell(int row, int column) {
 	}
 	else if (isFlagged(row,column)) {
 		if (isGameOver() && isMine(row, column)) {
-			printColored(pad("#", row, column), termcolor::red);
+			//printColored(pad("#", row, column), termcolor::red);
+			cout << pad("#", row, column);
 		}
 		else {
-			printColored(pad("@", row, column), termcolor::green);
+			//printColored(pad("@", row, column), termcolor::green);
+			cout << pad("@", row, column);
 		}
 	}
 	else {
 		if (isGameOver() && isMine(row, column)) {
 			//colourText(12);
-			printColored(pad("#", row, column), termcolor::red);
+			//printColored(pad("#", row, column), termcolor::red);
+			cout << pad("#", row, column);
 			//resetColour();
 		}
 		else {
