@@ -1,6 +1,12 @@
 #include"Minesweeper.h"
 #include <cstdlib>
 
+// Initializing static variables
+string Minesweeper::FLAG = "@";
+string Minesweeper::MINE = "#";
+string Minesweeper::HIDDEN_CELL = "-";
+string Minesweeper::FREE_CELL = " ";
+
 Minesweeper::Minesweeper(GameParameters& gp) {
 	rows = gp.rows;
 	columns = gp.columns;
@@ -9,6 +15,8 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 	board = allocateMatrix(rows, columns);
 	visible = allocateMatrix(rows, columns);
 	flagged = allocateMatrix(rows, columns);
+
+	terminal = new TerminalColoring();
 
 	cursorRow = 0;
 	cursorColumn = 0;
@@ -41,7 +49,7 @@ void Minesweeper::deallocateMatrix(int **mat, int rows, int columns) {
 }
 
 
-
+// logic for printing console game board
 string Minesweeper::pad(string info, int row, int column) {
 	string leftPad = " ";
 	string rightPad = " ";
@@ -70,29 +78,44 @@ bool Minesweeper::isFlagged(int row, int column) {
 	return (flagged[row][column] == 1);
 }
 
-void Minesweeper::printColored(string text, ostream& (*color) (ostream&)) {
-	cout << color << text;
-	cout << termcolor::reset;
+bool Minesweeper::isVisible(int row, int column) {
+	return visible[row][column] == 1;
 }
 
 void Minesweeper::printMine(int row, int column) {
-	printColored(pad("#", row, column), termcolor::green);
+	string element = pad(MINE, row, column);
+	print(element, terminal->RED);
 }
 
 void Minesweeper::printFlag(int row, int column) {
-	printColored(pad("@", row, column), termcolor::green);
+	string element = pad(FLAG, row, column);
+	print(element, terminal->GREEN);
+}
+
+void Minesweeper::printFreeCell(int row, int column) {
+	string element = pad(FREE_CELL, row, column);
+	cout << element;
+}
+
+void Minesweeper::printMinesNumber(int row, int column) {
+	string element = pad(board[row][column], row, column);
+	print(element, terminal->BLUE);
+}
+
+void Minesweeper::print(string element, int colour) {
+	terminal->printColored(element, colour);
 }
 
 void Minesweeper::printBoardCell(int row, int column) {
-	if (visible[row][column] == 1) {
+	if (isVisible(row, column)) {
 		if (isMine(row, column)) {
 			printMine(row, column);
 		}
 		else if (isFree(row, column)) {
-			cout << pad(" ", row, column);
+			printFreeCell(row, column);
 		}
 		else {
-			cout << pad(board[row][column], row, column);
+			printMinesNumber(row, column);
 		}
 	}
 	else if (isFlagged(row,column)) {
@@ -104,11 +127,12 @@ void Minesweeper::printBoardCell(int row, int column) {
 		}
 	}
 	else {
+		// either the game is over or the player has won
 		if (isGameOver() && isMine(row, column)) {
 			printMine(row, column);
 		}
 		else {
-			cout << pad("-", row, column);
+			cout << pad(HIDDEN_CELL, row, column);
 		}
 	}
 }
@@ -147,9 +171,10 @@ void Minesweeper::printBoard() {
 }
 
 void Minesweeper::printBoardInfo() {
+	int green = 10;
 	cout << '\n';
 	printSpaces(5);
-	printColored("MINESWEEPER INFO", termcolor::green);
+	terminal->printColored("MINESWEEPER INFO", terminal->GREEN);
 	cout << '\n' << '\n';
 	printSpaces(5);
 	cout << "Cursor moves: UP, DOWN, LEFT, RIGHT" << '\n';
@@ -177,7 +202,7 @@ void Minesweeper::startGame() {
 }
 
 
-
+// logic for random mines placement
 bool Minesweeper::placeMine() {
 	int randomNumber = rand() % 100;
 	return (randomNumber < difficulty);
@@ -308,7 +333,7 @@ void Minesweeper::flag() {
 }
 
 
-
+// logic for ending game
 int Minesweeper::countFreeCells() {
 	int count = 0;
 	for (int i = 0; i < rows; i++) {

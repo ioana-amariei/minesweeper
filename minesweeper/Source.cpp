@@ -11,6 +11,7 @@
 #define QUIT 'q'
 #define REPLAY 'r'
 
+TerminalColoring* terminal = new TerminalColoring();
 
 Coordinates readNextMove() {
 	int x, y;
@@ -56,18 +57,14 @@ GameParameters readGameParameters() {
 	return gp;
 }
 
-void printColored(string text, ostream& (*color) (ostream&)) {
-	cout << color << text;
-	cout << termcolor::reset;
-}
-
 char readCommand() {
 	char command;
 
 	do {
 		cout << '\n' << '\n';
 		printSpaces();
-		printColored("Play again (r) / Quit (q): ", termcolor::green);
+		string message = "Play again (r) / Quit (q): ";
+		terminal->printColored(message, terminal->GREEN);
 		cin >> command;
 		cout << '\n';
 	} while (command != QUIT && command != REPLAY);
@@ -77,13 +74,13 @@ char readCommand() {
 
 void printWinningMessage() {
 	string message = "C O N G R A T U L A T I O N S,    Y O U    W O N !!!";
-	printColored(message, termcolor::green);
+	terminal->printColored(message, terminal->GREEN);
 	cout << '\n';
 }
 
 void printGameOverMessage() {
 	string message = "G A M E   O V E R !!!";
-	printColored(message, termcolor::green);
+	terminal->printColored(message, terminal->RED);
 	cout << '\n';
 }
 
