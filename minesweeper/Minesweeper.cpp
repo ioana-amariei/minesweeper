@@ -202,7 +202,7 @@ void Minesweeper::startGame() {
 }
 
 
-// logic for random mines placement and counting
+// logic for random mines placement and game initializing
 bool Minesweeper::placeMine() {
 	int randomNumber = rand() % 100;
 	return (randomNumber < difficulty);
@@ -258,7 +258,7 @@ void Minesweeper::initBoard() {
 }
 
 
-// logic for reavealing all adjacent squares
+// logic for revealing all adjacent squares
 void Minesweeper::expandSelection(int row, int column) {
 	visible[row][column] = 1;
 
