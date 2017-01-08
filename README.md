@@ -24,8 +24,9 @@ square with a mine underneath. The location of the mines is discovered using clu
 ### How to play:
 The player is firstly asked to manually 
 Game instructions: 
-![alt text](https://github.com/ioanabirsan/minesweeper/screenshots/enter-game-parameters.png)
-![alt text][https://github.com/ioanabirsan/minesweeper/screenshots/initial-board.png]
+![alt text](https://github.com/ioanabirsan/minesweeper/raw/master/screenshots/enter-game-parameters.png)
+Game
+![alt text](https://github.com/ioanabirsan/minesweeper/raw/master/screenshots/initial-board.png)
 
 
 
