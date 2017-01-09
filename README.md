@@ -15,6 +15,8 @@ ___
 This game was developed as a requirement for a school project.
 The goal of the game is to uncover all the squares that do not contain mines without being "blown up" by clicking on a square with a mine underneath. The location of the mines is discovered using clues as a deductive method. 
 
+[Download the game](https://github.com/ioanabirsan/minesweeper/blob/master/Release/minesweeper.exe).
+
 
 ### Functionalities
 * Random mines generator, with a limit of bombs;
@@ -46,7 +48,7 @@ The player is initially presented with a grid of undifferentiated squares marked
 
 **Loosing**
 
-A game is lost when the player mistakenly reveal a square that contains a mine. In that moment, the game board displays all mines locations.
+A game is lost when the player mistakenly reveal a square that contains a mine. In that moment, the game board displays all mines locations marked by '#'.
 ![alt text](https://github.com/ioanabirsan/minesweeper/raw/master/screenshots/game-over.png)
 
 **Play again**
