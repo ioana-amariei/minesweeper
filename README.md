@@ -66,3 +66,7 @@ If you want to improve your skills, try some good advice from here: [Strategy](h
 ### Shortcomings
 * command line interface ([CLI](https://en.wikipedia.org/wiki/Command-line_interface))
 * flickering
+
+
+### License information
+[MIT license](https://github.com/ioanabirsan/minesweeper/blob/master/License.md)
