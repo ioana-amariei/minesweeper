@@ -13,7 +13,7 @@ ___
 
 ### Description
 This game was developed as a requirement for a school project.
-The goal of the game is to uncover all the squares that do not contain mines without being "blown up" by clicking on a square with a mine underneath. The location of the mines is discovered using clues as a deductive method. 
+For more information regarding the game consult the [wikipedia Minesweeper page](https://en.wikipedia.org/wiki/Minesweeper_(video_game)).
 
 [Download the game](https://github.com/ioanabirsan/minesweeper/blob/master/Release/minesweeper.exe).
 
