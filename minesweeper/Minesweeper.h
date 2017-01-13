@@ -53,8 +53,11 @@ private:
 
 	int cursorRow;
 	int cursorColumn;
+
 	int dx[8] = { -1,-1,0,1,1,1,0,-1 };
 	int dy[8] = { 0,1,1,1,0,-1,-1,-1 };
+	static const int DIRECTIONS;
+
 	bool gameOver;
 
 	static const string MINE;
@@ -78,6 +81,8 @@ private:
 
 	bool isVisible(int, int);
 
+	void print(string, int);
+
 	void printMine(int, int);
 
 	void printFlag(int, int);
@@ -85,8 +90,6 @@ private:
 	void printFreeCell(int, int);
 
 	void printMinesNumber(int, int);
-
-	void print(string, int);
 
 	void printBoardCell(int, int);
 
@@ -106,13 +109,13 @@ private:
 
 	void placeMines();
 
+	bool inBoard(int row, int column);
+
 	int countMines(int i, int j);
 
 	void placeMineCounters();
 
 	void initBoard();
-
-	bool inBoard(int row, int column);
 
 	void expandSelection(int row, int column);
 

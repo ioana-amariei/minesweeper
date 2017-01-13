@@ -2,10 +2,13 @@
 #include <cstdlib>
 
 // Initializing static variables
+const int Minesweeper::DIRECTIONS = 8;
+
 const string Minesweeper::FLAG = "@";
 const string Minesweeper::MINE = "#";
 const string Minesweeper::HIDDEN_CELL = "-";
 const string Minesweeper::FREE_CELL = " ";
+
 
 Minesweeper::Minesweeper(GameParameters& gp) {
 	rows = gp.rows;
@@ -84,6 +87,10 @@ bool Minesweeper::isVisible(int row, int column) {
 	return visible[row][column] == 1;
 }
 
+void Minesweeper::print(string element, int colour) {
+	terminal->printColored(element, colour);
+}
+
 void Minesweeper::printMine(int row, int column) {
 	string element = pad(MINE, row, column);
 	print(element, terminal->RED);
@@ -102,10 +109,6 @@ void Minesweeper::printFreeCell(int row, int column) {
 void Minesweeper::printMinesNumber(int row, int column) {
 	string element = pad(board[row][column], row, column);
 	print(element, terminal->BLUE);
-}
-
-void Minesweeper::print(string element, int colour) {
-	terminal->printColored(element, colour);
 }
 
 void Minesweeper::printBoardCell(int row, int column) {
@@ -153,6 +156,24 @@ void Minesweeper::printHorizontalBorder() {
 	cout << '\n';
 }
 
+void Minesweeper::printBoardInfo() {
+	int green = 10;
+	cout << '\n';
+	printSpaces(5);
+	terminal->printColored("MINESWEEPER INFO", terminal->GREEN);
+	cout << '\n' << '\n';
+	printSpaces(5);
+	cout << "Cursor moves: UP, DOWN, LEFT, RIGHT" << '\n';
+	printSpaces(5);
+	cout << "Reveal cell: SPACE" << '\n';
+	printSpaces(5);
+	cout << "Flag cell: f" << '\n';
+	printSpaces(5);
+	cout << "Percentage of mines: " << difficulty << "%" << '\n';
+	printSpaces(5);
+	cout << "Remaining cells: " << countFreeCells() << '\n';
+}
+
 void Minesweeper::printBoard() {
 	cout << '\n';
 	printHorizontalBorder();
@@ -170,24 +191,6 @@ void Minesweeper::printBoard() {
 
 	printHorizontalBorder();
 	printBoardInfo();
-}
-
-void Minesweeper::printBoardInfo() {
-	int green = 10;
-	cout << '\n';
-	printSpaces(5);
-	terminal->printColored("MINESWEEPER INFO", terminal->GREEN);
-	cout << '\n' << '\n';
-	printSpaces(5);
-	cout << "Cursor moves: UP, DOWN, LEFT, RIGHT" << '\n';
-	printSpaces(5);
-	cout << "Reveal cell: SPACE" << '\n';
-	printSpaces(5);
-	cout << "Flag cell: f" << '\n';
-	printSpaces(5);
-	cout << "Percentage of mines: " << difficulty << "%" << '\n';
-	printSpaces(5);
-	cout << "Remaining cells: " << countFreeCells() << '\n';
 }
 
 void Minesweeper::clearConsoleFrame() {
@@ -230,7 +233,7 @@ bool Minesweeper::inBoard(int row, int column) {
 int Minesweeper::countMines(int row, int column) {
 	int count = 0;
 
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < DIRECTIONS; i++) {
 		int x = row + dx[i];
 		int y = column + dy[i];
 
@@ -265,7 +268,7 @@ void Minesweeper::expandSelection(int row, int column) {
 	visible[row][column] = 1;
 
 	if (isFree(row, column)) {
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < DIRECTIONS; i++) {
 			int x = row + dx[i];
 			int y = column + dy[i];
 	
@@ -279,7 +282,7 @@ void Minesweeper::expandSelection(int row, int column) {
 }
 
 
-// Logic for making next move
+
 void Minesweeper::nextMove(Coordinates c) {
 	expandSelection(c.x, c.y);
 
