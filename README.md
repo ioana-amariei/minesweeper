@@ -1,4 +1,4 @@
-## Minesweeper
+# Minesweeper
 ___
 
 
@@ -39,7 +39,7 @@ The player is initially presented with a grid of squares marked by **'-'**. Some
 **Playing the game**
 
 - The player moves on the board game using **'UP'**, **'RIGHT'**, **'DOWN'** and **'LEFT'** keys. 
-- Pressing the *'SPACE'* key will reveal what is hidden underneath the chosen square. 
+- Pressing the **'SPACE'** key will reveal what is hidden underneath the chosen square. 
 - If no mine is revealed, a digit is instead displayed, indicating how many adjacent squares contain mines. 
 - If no mines are adjacent, all adjacent squares will be recursively revealed. 
 - To help avoid hitting a mine, the location of a suspected mine can be marked by flagging it by pressing **'f'** key. Those will appear marked with **'@'**. 
