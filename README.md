@@ -67,3 +67,7 @@ If you want to improve your skills, try some good advice from here: [Strategy](h
 
 * flickering
 * [console application](https://en.wikipedia.org/wiki/Console_application)
+
+
+### License information
+[MIT license](https://github.com/ioanabirsan/minesweeper/blob/master/License.md)
