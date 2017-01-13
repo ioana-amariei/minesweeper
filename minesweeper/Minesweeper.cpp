@@ -49,7 +49,7 @@ void Minesweeper::deallocateMatrix(int **mat, int rows, int columns) {
 }
 
 
-// logic for printing console game board
+// Logic for printing console game board
 string Minesweeper::pad(string info, int row, int column) {
 	string leftPad = " ";
 	string rightPad = " ";
@@ -202,7 +202,7 @@ void Minesweeper::startGame() {
 }
 
 
-// logic for random mines placement and game initializing
+// Logic for random mines placement and game initializing
 bool Minesweeper::placeMine() {
 	int randomNumber = rand() % 100;
 	return (randomNumber < difficulty);
@@ -258,7 +258,7 @@ void Minesweeper::initBoard() {
 }
 
 
-// logic for revealing all adjacent squares
+// Logic for revealing all adjacent squares
 void Minesweeper::expandSelection(int row, int column) {
 	visible[row][column] = 1;
 
@@ -277,7 +277,7 @@ void Minesweeper::expandSelection(int row, int column) {
 }
 
 
-// logic for making next move
+// Logic for making next move
 void Minesweeper::nextMove(Coordinates c) {
 	expandSelection(c.x, c.y);
 
@@ -294,7 +294,7 @@ void Minesweeper::nextMove() {
 }
 
 
-// logic for cursor moving in game board
+// Logic for cursor moving in game board
 void Minesweeper::up() {
 	if (cursorRow > 0) {
 		cursorRow--;
@@ -333,7 +333,7 @@ void Minesweeper::flag() {
 }
 
 
-// logic for ending game
+// Logic for ending game
 int Minesweeper::countFreeCells() {
 	int count = 0;
 	for (int i = 0; i < rows; i++) {
