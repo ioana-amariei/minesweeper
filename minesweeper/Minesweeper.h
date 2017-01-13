@@ -11,7 +11,7 @@ class Minesweeper {
 
 public:
 
-	explicit Minesweeper(GameParameters&);
+	Minesweeper(GameParameters&);
 
 	void startGame();
 
@@ -57,10 +57,10 @@ private:
 	int dy[8] = { 0,1,1,1,0,-1,-1,-1 };
 	bool gameOver;
 
-	static string MINE;
-	static string FLAG;
-	static string HIDDEN_CELL;
-	static string FREE_CELL;
+	static const string MINE;
+	static const string FLAG;
+	static const string HIDDEN_CELL;
+	static const string FREE_CELL;
 
 	int** allocateMatrix(int, int);
 

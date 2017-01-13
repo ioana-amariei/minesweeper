@@ -7,10 +7,10 @@ using namespace std;
 class TerminalColoring {
 public:
 
-	static int BLUE;
-	static int GREEN;
-	static int RED;
-	static int WHITE;
+	static const int BLUE;
+	static const int GREEN;
+	static const int RED;
+	static const int WHITE;
 
 	TerminalColoring();
 

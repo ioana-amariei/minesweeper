@@ -1,9 +1,10 @@
 #include"TerminalColoring.h"
 
-int TerminalColoring::BLUE = 11;
-int TerminalColoring::GREEN = 10;
-int TerminalColoring::RED = 12;
-int TerminalColoring::WHITE = 15;
+// Initializing static variables
+const int TerminalColoring::BLUE = 11;
+const int TerminalColoring::GREEN = 10;
+const int TerminalColoring::RED = 12;
+const int TerminalColoring::WHITE = 15;
 
 
 TerminalColoring::TerminalColoring() {

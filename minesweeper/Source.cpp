@@ -128,6 +128,7 @@ void playGame() {
 	}
 
 	minesweeper->~Minesweeper();
+	//delete minesweeper; /* se apeleaza destructorul in mod implicit */
 }
 
 

@@ -2,10 +2,10 @@
 #include <cstdlib>
 
 // Initializing static variables
-string Minesweeper::FLAG = "@";
-string Minesweeper::MINE = "#";
-string Minesweeper::HIDDEN_CELL = "-";
-string Minesweeper::FREE_CELL = " ";
+const string Minesweeper::FLAG = "@";
+const string Minesweeper::MINE = "#";
+const string Minesweeper::HIDDEN_CELL = "-";
+const string Minesweeper::FREE_CELL = " ";
 
 Minesweeper::Minesweeper(GameParameters& gp) {
 	rows = gp.rows;
@@ -26,9 +26,11 @@ Minesweeper::Minesweeper(GameParameters& gp) {
 }
 
 Minesweeper::~Minesweeper() {
-	deallocateMatrix(board, rows, columns);
-	deallocateMatrix(visible, rows, columns);
+	delete terminal;
+
 	deallocateMatrix(flagged, rows, columns);
+	deallocateMatrix(visible, rows, columns);
+	deallocateMatrix(board, rows, columns);
 }
 
 int** Minesweeper::allocateMatrix(int rows, int columns) {
