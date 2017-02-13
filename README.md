@@ -65,7 +65,7 @@ If you want to improve your skills, try some good advice from here: [Strategy](h
 
 ### Shortcomings
 
-* flickering
+* [flickering](https://en.wikipedia.org/wiki/Flicker_(screen))
 * [console application](https://en.wikipedia.org/wiki/Console_application)
 
 
