@@ -1,17 +1,15 @@
-# Minesweeper
-___
+# Minesweeper Game
 
+### Table of Contents
 
-### Contents
-
-* Description
+* Introduction
 * Functionality
 * How to play
 * Shortcomings
 * License information
 
 
-### Description
+### Introduction
 This game was developed as a requirement for a school project.
 For more information regarding the game consult the [wikipedia Minesweeper page](https://en.wikipedia.org/wiki/Minesweeper_(video_game)).
 
