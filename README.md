@@ -1,20 +1,12 @@
 # Minesweeper Game
 
-### Table of Contents
-
-* Introduction
-* Functionality
-* How to play
-* Shortcomings
-* License information
-
-
 ### Introduction
-This game was developed as a requirement for a school project.
-For more information regarding the game consult the [wikipedia Minesweeper page](https://en.wikipedia.org/wiki/Minesweeper_(video_game)).
+Developed a CLI version of the Minesweeper game. The application includes support for: random mines generator with a number of bombs threshold, option to mark a particular square with a flag, and the possibility to reveal all adjacent squares if no mines are present. For more information regarding the rules of the game consult the [wikipedia Minesweeper page](https://en.wikipedia.org/wiki/Minesweeper_(video_game)).
 
+**Tech: C++**
+
+### Download Game
 [Download the game](https://github.com/ioanabirsan/minesweeper/blob/master/Release/minesweeper.exe).
-
 
 ### Functionality
 * Random mines generator, with a limit of bombs;
