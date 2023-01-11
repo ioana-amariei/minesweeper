@@ -56,7 +56,7 @@ If you want to improve your skills, try some good advice from here: [Strategy](h
 ### Improvement Directions
 
 * Remove [flickering](https://en.wikipedia.org/wiki/Flicker_(screen))
-* Offer a Web-based version of [console application](https://en.wikipedia.org/wiki/Console_application)
+* Offer a Web-based version of the [console application](https://en.wikipedia.org/wiki/Console_application)
 
 
 ### License information
