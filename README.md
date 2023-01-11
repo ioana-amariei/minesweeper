@@ -53,10 +53,10 @@ The game is won once all blank squares have been uncovered without hitting a min
 If you want to improve your skills, try some good advice from here: [Strategy](http://www.minesweeper.info/wiki/Strategy)
 
 
-### Shortcomings
+### Improvement Directions
 
-* [flickering](https://en.wikipedia.org/wiki/Flicker_(screen))
-* [console application](https://en.wikipedia.org/wiki/Console_application)
+* Remove [flickering](https://en.wikipedia.org/wiki/Flicker_(screen))
+* Offer a Web-based version of [console application](https://en.wikipedia.org/wiki/Console_application)
 
 
 ### License information
